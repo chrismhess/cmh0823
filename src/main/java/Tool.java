@@ -1,13 +1,23 @@
-import javax.money.MonetaryAmount;
+import org.javamoney.moneta.Money;
 
 public class Tool {
     private String toolCode;
     private String toolType;
     private String toolBrand;
-    private MonetaryAmount dailyCharge;
+    private Money dailyCharge;
     private Boolean chargeOnWeekday;
     private Boolean chargeOnWeekend;
     private Boolean chargeOnHoliday;
+
+    public Tool(String toolCode, String toolType, String toolBrand, double dailyCharge, Boolean chargeOnWeekday, Boolean chargeOnWeekend, Boolean chargeOnHoliday) {
+        this.toolCode = toolCode;
+        this.toolType = toolType;
+        this.toolBrand = toolBrand;
+        this.dailyCharge = Money.of(dailyCharge, PointOfSale.currency);
+        this.chargeOnWeekday = chargeOnWeekday;
+        this.chargeOnWeekend = chargeOnWeekend;
+        this.chargeOnHoliday = chargeOnHoliday;
+    }
 
     public String getToolCode() {
         return toolCode;
@@ -33,11 +43,15 @@ public class Tool {
         this.toolBrand = toolBrand;
     }
 
-    public MonetaryAmount getDailyCharge() {
+    public Money getDailyCharge() {
         return dailyCharge;
     }
 
-    public void setDailyCharge(MonetaryAmount dailyCharge) {
+    public void setDailyCharge(Double dailyCharge) {
+        this.dailyCharge = Money.of(dailyCharge, PointOfSale.currency);;
+    }
+
+    public void setDailyCharge(Money dailyCharge) {
         this.dailyCharge = dailyCharge;
     }
 

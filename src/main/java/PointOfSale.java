@@ -7,6 +7,8 @@ public class PointOfSale {
     // hash map is used to store tools to ensure unique tool codes and fast access
     private HashMap<String, Tool> toolInventory;
     private ArrayList<DateTime> holidays;
+
+    public static String currency = "USD";
     public PointOfSale() {
         this.toolInventory = new HashMap<>();
         this.holidays = new ArrayList<>();
