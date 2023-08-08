@@ -1,6 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class ToolTest {
     Tool testTool;
@@ -10,82 +11,93 @@ class ToolTest {
         testTool = new Tool("CHNS", "Chainsaw", "Stihl", 1.49, true, false, true);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testGetToolCode() {
         assertEquals("CHNS",testTool.getToolCode());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetToolCode() {
         assertEquals("CHNS",testTool.getToolCode());
         testTool.setToolCode("test");
         assertEquals("test",testTool.getToolCode());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getToolType() {
         assertEquals("Chainsaw", testTool.getToolType());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetToolType() {
         assertEquals("Chainsaw", testTool.getToolType());
         testTool.setToolType("test");
         assertEquals("test",testTool.getToolType());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getToolBrand() {
         assertEquals("Stihl", testTool.getToolBrand());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetToolBrand() {
         assertEquals("Stihl", testTool.getToolBrand());
         testTool.setToolBrand("test");
         assertEquals("test",testTool.getToolBrand());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getDailyCharge() {
         assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetDailyChargeDouble() {
         assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
         testTool.setDailyCharge(2.);
         assertEquals(Money.of(2, PointOfSale.currency), testTool.getDailyCharge());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetDailyChargeMoney() {
         assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
         testTool.setDailyCharge(Money.of(2, PointOfSale.currency));
         assertEquals(Money.of(2, PointOfSale.currency), testTool.getDailyCharge());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getChargeOnWeekday() {
+        assertEquals(true, testTool.getChargeOnWeekday());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetChargeOnWeekday() {
+        assertEquals(true, testTool.getChargeOnWeekday());
+        testTool.setChargeOnWeekday(false);
+        assertEquals(false, testTool.getChargeOnWeekday());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getChargeOnWeekend() {
+        assertEquals(false, testTool.getChargeOnWeekend());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetChargeOnWeekend() {
+        assertEquals(false, testTool.getChargeOnWeekend());
+        testTool.setChargeOnWeekend(true);
+        assertEquals(true, testTool.getChargeOnWeekend());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getChargeOnHoliday() {
+        assertEquals(true, testTool.getChargeOnHoliday());
     }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetChargeOnHoliday() {
+        assertEquals(true, testTool.getChargeOnHoliday());
+        testTool.setChargeOnHoliday(false);
+        assertEquals(false, testTool.getChargeOnHoliday());
     }
 }
