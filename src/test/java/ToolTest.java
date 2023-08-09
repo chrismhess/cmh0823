@@ -8,7 +8,7 @@ class ToolTest {
 
     @BeforeEach
     void init(){
-        testTool = new Tool("CHNS", "Chainsaw", "Stihl", 1.49, true, false, true);
+        testTool = new Tool("CHNS", "Chainsaw", "Stihl");
     }
 
     @Test
@@ -47,57 +47,57 @@ class ToolTest {
         assertEquals("test",testTool.getToolBrand());
     }
 
-    @Test
-    void getDailyCharge() {
-        assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
-    }
-
-    @Test
-    void testSetDailyChargeDouble() {
-        assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
-        testTool.setDailyCharge(2.);
-        assertEquals(Money.of(2, PointOfSale.currency), testTool.getDailyCharge());
-    }
-
-    @Test
-    void testSetDailyChargeMoney() {
-        assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
-        testTool.setDailyCharge(Money.of(2, PointOfSale.currency));
-        assertEquals(Money.of(2, PointOfSale.currency), testTool.getDailyCharge());
-    }
-
-    @Test
-    void getChargeOnWeekday() {
-        assertEquals(true, testTool.getChargeOnWeekday());
-    }
-
-    @Test
-    void testSetChargeOnWeekday() {
-        assertEquals(true, testTool.getChargeOnWeekday());
-        testTool.setChargeOnWeekday(false);
-        assertEquals(false, testTool.getChargeOnWeekday());
-    }
-
-    @Test
-    void getChargeOnWeekend() {
-        assertEquals(false, testTool.getChargeOnWeekend());
-    }
-
-    @Test
-    void testSetChargeOnWeekend() {
-        assertEquals(false, testTool.getChargeOnWeekend());
-        testTool.setChargeOnWeekend(true);
-        assertEquals(true, testTool.getChargeOnWeekend());
-    }
-
-    @Test
-    void getChargeOnHoliday() {
-        assertEquals(true, testTool.getChargeOnHoliday());
-    }
-    @Test
-    void testSetChargeOnHoliday() {
-        assertEquals(true, testTool.getChargeOnHoliday());
-        testTool.setChargeOnHoliday(false);
-        assertEquals(false, testTool.getChargeOnHoliday());
-    }
+//    @Test
+//    void getDailyCharge() {
+//        assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
+//    }
+//
+//    @Test
+//    void testSetDailyChargeDouble() {
+//        assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
+//        testTool.setDailyCharge(2.);
+//        assertEquals(Money.of(2, PointOfSale.currency), testTool.getDailyCharge());
+//    }
+//
+//    @Test
+//    void testSetDailyChargeMoney() {
+//        assertEquals(Money.of(1.49, PointOfSale.currency), testTool.getDailyCharge());
+//        testTool.setDailyCharge(Money.of(2, PointOfSale.currency));
+//        assertEquals(Money.of(2, PointOfSale.currency), testTool.getDailyCharge());
+//    }
+//
+//    @Test
+//    void getChargeOnWeekday() {
+//        assertEquals(true, testTool.getChargeOnWeekday());
+//    }
+//
+//    @Test
+//    void testSetChargeOnWeekday() {
+//        assertEquals(true, testTool.getChargeOnWeekday());
+//        testTool.setChargeOnWeekday(false);
+//        assertEquals(false, testTool.getChargeOnWeekday());
+//    }
+//
+//    @Test
+//    void getChargeOnWeekend() {
+//        assertEquals(false, testTool.getChargeOnWeekend());
+//    }
+//
+//    @Test
+//    void testSetChargeOnWeekend() {
+//        assertEquals(false, testTool.getChargeOnWeekend());
+//        testTool.setChargeOnWeekend(true);
+//        assertEquals(true, testTool.getChargeOnWeekend());
+//    }
+//
+//    @Test
+//    void getChargeOnHoliday() {
+//        assertEquals(true, testTool.getChargeOnHoliday());
+//    }
+//    @Test
+//    void testSetChargeOnHoliday() {
+//        assertEquals(true, testTool.getChargeOnHoliday());
+//        testTool.setChargeOnHoliday(false);
+//        assertEquals(false, testTool.getChargeOnHoliday());
+//    }
 }

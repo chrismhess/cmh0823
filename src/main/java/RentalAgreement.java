@@ -16,6 +16,11 @@ public class RentalAgreement {
     private MonetaryAmount finalPrice;
 
     public RentalAgreement(String toolCode, int rentalDayCount, int discountPercent, DateTime checkoutDate) {
+        Tool tool = PointOfSale.lookUpTool(toolCode);
+        ToolInfo info = PointOfSale.getToolInfo(tool.getToolType());
+        this.rentalDuration = rentalDayCount;
+        this.discountPercent = discountPercent;
+        this.checkOutDate = checkoutDate;
 
     }
     public String getToolType() {
