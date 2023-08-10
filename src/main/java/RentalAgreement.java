@@ -75,21 +75,22 @@ public class RentalAgreement {
     }
 
     /**
-     * to handle multiple years pass checkout length, compare against whether it goes beyond current year, and if it does detereine holidays for all
-     * years relevant
-     * @param checkoutDate
-     * @return
+     * This function takes the provided checkout date and the rental duration to determine how many relevant
+     * holidays will need to be known for determine chargeable days. It also handles cases where a customer
+     * wants to rent a tool for multiple years and there could be multiple years of holidays to cover.
+     * @param checkoutDate the date specified for checkout
+     * @param rentalDuration the number of days represented as an int that the tool will be checked out for
+     * @return a List of LocalDate Object representing all the relevant holidays for this rental agreement.
      */
     private List<LocalDate> calculateHolidays(LocalDate checkoutDate, int rentalDuration) {
         List<LocalDate> holidays = new ArrayList<>();
         holidays.add(getJulyFourthHolidayForYear(checkoutDate.getYear()));
         holidays.add(getLaborDayHolidayForYear(checkoutDate.getYear()));
         LocalDate localDate2 = LocalDate.of(checkoutDate.getYear(), 12, 31);
-        int daysRemaining = (int) ChronoUnit.DAYS.between(checkoutDate, localDate2);
-
-        if(rentalDuration > daysRemaining) {
+        int daysRemainingInYear = (int) ChronoUnit.DAYS.between(checkoutDate, localDate2);
+        if(rentalDuration > daysRemainingInYear) {
             int currentYear = checkoutDate.getYear();
-            rentalDuration = rentalDuration-daysRemaining;
+            rentalDuration = rentalDuration-daysRemainingInYear;
             while(rentalDuration > 0) {
                 currentYear++;
                 holidays.add(getJulyFourthHolidayForYear(currentYear));
