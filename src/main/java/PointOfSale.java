@@ -34,10 +34,6 @@ public class PointOfSale {
             throw new IllegalArgumentException(String.format("Tool Code %s was not found in tool inventory. Please check tool code spelling and try again.", toolCode));
 
         }
-        // check to ensure related tool info is present in system
-        if(!toolInfoTable.containsKey(toolCode)) {
-            throw new MissingResourceException("Provided tool code was found in inventory but additional info was missing in system, please contact support for assistance or try a similar tool code.", "ToolInfo", toolCode);
-        }
         // rental day count must be greater than 1
         if (rentalDayCount < 1) {
             throw new IllegalArgumentException(String.format("Rental Day count %s is invalid. Rental day count must be 1 day or more", rentalDayCount));

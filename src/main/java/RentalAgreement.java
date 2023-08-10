@@ -3,6 +3,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
+
 import static java.time.temporal.TemporalAdjusters.firstInMonth;
 
 public class RentalAgreement {
@@ -22,6 +24,10 @@ public class RentalAgreement {
     public RentalAgreement(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
         Tool tool = PointOfSale.lookUpTool(toolCode);
         ToolInfo info = PointOfSale.getToolInfo(tool.getToolType());
+        // check to ensure related tool info is present in system
+        if(info == null) {
+            throw new MissingResourceException("Provided tool code was found in inventory but tool type info was missing in system, please contact support for assistance or try a similar tool code.", "ToolInfo", tool.getToolType());
+        }
         this.toolCode = toolCode;
         this.rentalDuration = rentalDayCount;
         this.discountPercent = discountPercent;
