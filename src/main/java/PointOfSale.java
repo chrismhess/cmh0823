@@ -3,6 +3,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.MissingResourceException;
 
 public class PointOfSale {
     // hash map is used to store tools to ensure unique tool codes and fast access
@@ -28,6 +29,24 @@ public class PointOfSale {
     }
 
     public RentalAgreement checkout(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
+        // check to ensure tool code provided is in inventory
+        if(!toolInventory.containsKey(toolCode)) {
+            throw new IllegalArgumentException(String.format("Tool Code %s was not found in tool inventory. Please check tool code spelling and try again.", toolCode));
+
+        }
+        // check to ensure related tool info is present in system
+        if(!toolInfoTable.containsKey(toolCode)) {
+            throw new MissingResourceException("Provided tool code was found in inventory but additional info was missing in system, please contact support for assistance or try a similar tool code.", "ToolInfo", toolCode);
+        }
+        // rental day count must be greater than 1
+        if (rentalDayCount < 1) {
+            throw new IllegalArgumentException(String.format("Rental Day count %s is invalid. Rental day count must be 1 day or more", rentalDayCount));
+
+        }
+        // discount values are only valid as a percent value between 0 and 100 inclusive.
+        if (discountPercent < 0 || discountPercent > 100) {
+            throw new IllegalArgumentException(String.format("Discount Percentage value %s is invalid. Please provide the discount value as a whole number between 0 and 100.", discountPercent));
+        }
         return new RentalAgreement(toolCode, rentalDayCount, discountPercent, checkoutDate);
     }
 
