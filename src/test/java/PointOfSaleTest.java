@@ -32,6 +32,122 @@ class PointOfSaleTest {
         assertEquals("Stihl", agreement.getToolBrand());
     }
 
+    /**
+     * Test 1 per the Assignment specification, this attempts to check a tool out with a discount value higher than
+     * acceptable, it throws an Illegal argument exception and returns a user-friendly error message informing them of
+     * the issue and how to correct it.
+     */
+    @Test
+    void checkoutWithDiscountOverLimit(){
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            pointOfSale.checkout("JAKR", 5, 101, LocalDate.of(2015, 9, 3));
+        });
+        assertEquals("Discount Percentage value 101 is invalid. Please provide a discount value as a whole number between 0 and 100.", thrown.getMessage());
+    }
+
+    /**
+     * Test 2 per the assignment specification, this is a test of a valid Ladder tool being checked out over the july fourth
+     * holiday of 2020 with a 10% discount applied.
+     */
+    @Test
+    void checkoutWithValidInputTest2(){
+        RentalAgreement agreement = pointOfSale.checkout("LADW", 3, 10, LocalDate.of(2020,7,2));
+        assertEquals(2, agreement.getChargeableDays());
+        assertEquals(10, agreement.getDiscountPercent());
+        assertEquals(Money.of(1.99, PointOfSale.currency), agreement.getDailyRentalCharge());
+        assertEquals("LADW", agreement.getToolCode());
+        assertEquals(3, agreement.getRentalDuration());
+        assertEquals(LocalDate.of(2020,7,2), agreement.getCheckOutDate());
+        assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(3.98, PointOfSale.currency)));
+        assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(.398, PointOfSale.currency)));
+        assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(3.582, PointOfSale.currency)));
+        assertEquals(LocalDate.of(2020,7,5), agreement.getDueDate());
+        assertEquals("Werner", agreement.getToolBrand());
+    }
+
+    /**
+     * Test 3 per the assignment specification, this is a test of a valid Chainsaw tool being checked out over the july fourth
+     * holiday of 2015 with a 25% discount applied.
+     */
+    @Test
+    void checkoutWithValidInputTest3(){
+        RentalAgreement agreement = pointOfSale.checkout("CHNS", 5, 25, LocalDate.of(2015,7,2));
+        assertEquals("CHNS", agreement.getToolCode());
+        assertEquals("Stihl", agreement.getToolBrand());
+        assertEquals(5, agreement.getRentalDuration());
+        assertEquals(LocalDate.of(2015,7,2), agreement.getCheckOutDate());
+        assertEquals(LocalDate.of(2015,7,7), agreement.getDueDate());
+        assertEquals(3, agreement.getChargeableDays());
+        assertEquals(25, agreement.getDiscountPercent());
+        assertEquals(Money.of(1.49, PointOfSale.currency), agreement.getDailyRentalCharge());
+        assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(4.47, PointOfSale.currency)));
+        assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1.1175, PointOfSale.currency)));
+        assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(3.3525, PointOfSale.currency)));
+    }
+
+    /**
+     * Test 4 per the assignment specification, this is a test of a valid Jackhammer tool being checked out over the labor day
+     * holiday of 2015 with a no discount applied.
+     */
+    @Test
+    void checkoutWithValidInputTest4(){
+        RentalAgreement agreement = pointOfSale.checkout("JAKD", 6, 0, LocalDate.of(2015,9,3));
+        assertEquals("JAKD", agreement.getToolCode());
+        assertEquals("DeWalt", agreement.getToolBrand());
+        assertEquals(6, agreement.getRentalDuration());
+        assertEquals(LocalDate.of(2015,9,3), agreement.getCheckOutDate());
+        assertEquals(LocalDate.of(2015,9,9), agreement.getDueDate());
+        assertEquals(3, agreement.getChargeableDays());
+        assertEquals(0, agreement.getDiscountPercent());
+        assertEquals(Money.of(2.99, PointOfSale.currency), agreement.getDailyRentalCharge());
+        assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(8.97, PointOfSale.currency)));
+        assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(0, PointOfSale.currency)));
+        assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(8.97, PointOfSale.currency)));
+    }
+
+    /**
+     * Test 5 per the assignment specification, this is a test of a valid Jackhammer tool being checked out over the July Fourth
+     * holiday of 2015 with no discount applied.
+     */
+    @Test
+    void checkoutWithValidInputTest5(){
+        RentalAgreement agreement = pointOfSale.checkout("JAKD", 9, 0, LocalDate.of(2015,7,2));
+        assertEquals("JAKD", agreement.getToolCode());
+        assertEquals("DeWalt", agreement.getToolBrand());
+        assertEquals(9, agreement.getRentalDuration());
+        assertEquals(LocalDate.of(2015,7,2), agreement.getCheckOutDate());
+        assertEquals(LocalDate.of(2015,7,11), agreement.getDueDate());
+        assertEquals(5, agreement.getChargeableDays());
+        assertEquals(0, agreement.getDiscountPercent());
+        assertEquals(Money.of(2.99, PointOfSale.currency), agreement.getDailyRentalCharge());
+        assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(14.95, PointOfSale.currency)));
+        assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(0, PointOfSale.currency)));
+        assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(14.95, PointOfSale.currency)));
+    }
+
+    /**
+     * Test 5 per the assignment specification, this is a test of a valid Jackhammer tool being checked out over the July Fourth
+     * holiday of 2015 with a 50% discount applied.
+     */
+    @Test
+    void checkoutWithValidInputTest6(){
+        RentalAgreement agreement = pointOfSale.checkout("JAKR", 4, 50, LocalDate.of(2020,7,2));
+        assertEquals("JAKR", agreement.getToolCode());
+        assertEquals("Ridgid", agreement.getToolBrand());
+        assertEquals(4, agreement.getRentalDuration());
+        assertEquals(LocalDate.of(2020,7,2), agreement.getCheckOutDate());
+        assertEquals(LocalDate.of(2020,7,6), agreement.getDueDate());
+        assertEquals(1, agreement.getChargeableDays());
+        assertEquals(50, agreement.getDiscountPercent());
+        assertEquals(Money.of(2.99, PointOfSale.currency), agreement.getDailyRentalCharge());
+        assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(2.99, PointOfSale.currency)));
+        assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1.495, PointOfSale.currency)));
+        assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(1.495, PointOfSale.currency)));
+    }
+    @Test
+    void checkoutWithDiscountUnderLimit(){
+            pointOfSale.checkout("JAKR", 9, 0, LocalDate.of(2015, 7, 2));
+    }
     @Test
     void addTool() {
     }

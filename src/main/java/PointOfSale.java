@@ -28,6 +28,14 @@ public class PointOfSale {
         return toolInfoTable.get(toolType);
     }
 
+    /**
+     *
+     * @param toolCode
+     * @param rentalDayCount
+     * @param discountPercent
+     * @param checkoutDate
+     * @return
+     */
     public RentalAgreement checkout(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
         // check to ensure tool code provided is in inventory
         if(!toolInventory.containsKey(toolCode)) {
@@ -41,7 +49,7 @@ public class PointOfSale {
         }
         // discount values are only valid as a percent value between 0 and 100 inclusive.
         if (discountPercent < 0 || discountPercent > 100) {
-            throw new IllegalArgumentException(String.format("Discount Percentage value %s is invalid. Please provide the discount value as a whole number between 0 and 100.", discountPercent));
+            throw new IllegalArgumentException(String.format("Discount Percentage value %s is invalid. Please provide a discount value as a whole number between 0 and 100.", discountPercent));
         }
         return new RentalAgreement(toolCode, rentalDayCount, discountPercent, checkoutDate);
     }
@@ -67,7 +75,7 @@ public class PointOfSale {
         toolInventory.put("CHNS", new Tool("CHNS", "Chainsaw", "Stihl"));
         toolInventory.put("LADW", new Tool("LADW", "Ladder", "Werner"));
         toolInventory.put("JAKD", new Tool("JAKD", "Jackhammer", "DeWalt"));
-        toolInventory.put("JARK", new Tool("JARK", "Jackhammer", "Rigid"));
+        toolInventory.put("JAKR", new Tool("JARK", "Jackhammer", "Ridgid"));
     }
 
     private void initializeToolTable() {
