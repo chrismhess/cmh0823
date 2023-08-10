@@ -37,22 +37,25 @@ public class RentalAgreement {
         this.dailyRentalCharge = info.getDailyCharge();
         this.toolBrand = tool.getToolBrand();
         List<LocalDate> holidays = calculateHolidays(checkoutDate);
-        LocalDate currentDate = this.checkOutDate.plusDays(1);
+        LocalDate currentDate = this.checkOutDate;
         int chargeableDays = 0;
         for(int i = 0; i < rentalDayCount; i++) {
+            currentDate = currentDate.plusDays(1);
             if(currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) { // if it's a weekend
                 if(info.getChargeOnWeekend()) {
                     this.chargeableDays++;
                 }
             } else {// if it's not a weekend
-                if(holidays.contains(currentDate) && info.getChargeOnHoliday()) { // if it's a holiday and chargeable
-                    this.chargeableDays++;
+                // if holiday and weekday true no need to check if its holiday
+                if(holidays.contains(currentDate) ) { // if it's a holiday and chargeable
+                    if(info.getChargeOnHoliday()) {
+                        this.chargeableDays++;
+                    }
                 } else if (info.getChargeOnWeekday()) { // it's not a holiday, check if chargeable and add to days
                     this.chargeableDays++;
                 }
 
             }
-            currentDate = currentDate.plusDays(1);
         }
         this.preDiscountPrice = info.getDailyCharge().multiply(this.chargeableDays);
         this.discountAmount = preDiscountPrice.multiply((discountPercent*1.0/100.0));
