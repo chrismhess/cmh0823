@@ -73,6 +73,27 @@ class PointOfSaleTest {
     }
 
     /**
+     * Test 3 per the assignment specification, this is a test of a valid Chainsaw tool being checked out for 4 days
+     * over the july fourth holiday of 2015 with a 25% discount applied. This takes a checkout date in a string format
+     * to ensure we support flexibility in input for future use cases.
+     */
+    @Test
+    void checkoutWithValidInputTest3WithStringDate(){
+        RentalAgreement agreement = pointOfSale.checkout("CHNS", 5, 25, "07/02/2015");
+        assertEquals("CHNS", agreement.getToolCode());
+        assertEquals("Stihl", agreement.getToolBrand());
+        assertEquals(5, agreement.getRentalDuration());
+        assertEquals(LocalDate.of(2015,7,2), agreement.getCheckOutDate());
+        assertEquals(LocalDate.of(2015,7,7), agreement.getDueDate());
+        assertEquals(3, agreement.getChargeableDays());
+        assertEquals(25, agreement.getDiscountPercent());
+        assertEquals(Money.of(1.49, PointOfSale.currency), agreement.getDailyRentalCharge());
+        assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(4.47, PointOfSale.currency)));
+        assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1.1175, PointOfSale.currency)));
+        assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(3.3525, PointOfSale.currency)));
+    }
+
+    /**
      * Test 4 per the assignment specification, this is a test of a valid Jackhammer tool being checked out for six days
      * over the labor day holiday of 2015 with a no discount applied.
      */

@@ -1,6 +1,7 @@
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.MissingResourceException;
 
@@ -42,12 +43,12 @@ public class PointOfSale {
     }
 
     /**
-     *
-     * @param toolCode
-     * @param rentalDayCount
-     * @param discountPercent
-     * @param checkoutDate
-     * @return
+     * This function serves as the checkout method for creating a rental agreement
+     * @param toolCode the code for tool being rented
+     * @param rentalDayCount the number of days as an integer representing the duration of the rental period
+     * @param discountPercent the discount percent represented as an int value from 0-100
+     * @param checkoutDate the date for when the rental period begins as a LocalDate object
+     * @return a complete rental agreement containing all the correct attributes per the specification
      */
     public RentalAgreement checkout(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
         return new RentalAgreement(toolCode, rentalDayCount, discountPercent, checkoutDate);
@@ -57,9 +58,20 @@ public class PointOfSale {
         toolInventory.put(tool.getToolCode(), tool);
     }
 
+    /**
+     *
+     * This function serves as the checkout method for creating a rental agreement, it is overloaded to allow for using
+     * either a date object or a string to be turned into a date object for flexibility
+     * @param toolCode the code for tool being rented
+     * @param rentalDayCount the number of days as an integer representing the duration of the rental period
+     * @param discountPercent the discount percent represented as an int value from 0-100
+     * @param checkoutDate the date as a string matching the instructions specification format mm/dd/yyyy to be
+     *                     converted to LocalDate object for use
+     * @return a complete rental agreement containing all the correct attributes per the specification
+     */
     public RentalAgreement checkout(String toolCode, Integer rentalDayCount, Integer discountPercent, String checkoutDate) {
-
-        return null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return new RentalAgreement(toolCode, rentalDayCount, discountPercent, LocalDate.parse(checkoutDate, formatter));
     }
 
     /**

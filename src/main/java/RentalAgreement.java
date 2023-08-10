@@ -24,7 +24,7 @@ public class RentalAgreement {
     /**
      *  Constructor for rental agreement takes the following parameters and generates the remaining information based
      *  upon these parameters. It also has a check in place that if for some reason the tool information is missing
-     *  from that table it will exit elegantly with a error message informing the user of a problem with the system, not
+     *  from that table it will exit elegantly with an error message informing the user of a problem with the system, not
      *  their input.
      * @param toolCode the code for tool being rented
      * @param rentalDayCount the number of days as an integer representing the duration of the rental period
