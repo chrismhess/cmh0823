@@ -1,5 +1,6 @@
 
 import java.time.LocalDate;
+import java.util.MissingResourceException;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ class PointOfSaleTest {
      * the issue and how to correct it.
      */
     @Test
-    void checkoutWithDiscountOverLimit(){
+    void checkoutWithDiscountOverLimitTest1(){
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             pointOfSale.checkout("JAKR", 5, 101,
                     LocalDate.of(2015, 9, 3));
@@ -171,6 +172,26 @@ class PointOfSaleTest {
         });
         assertEquals("Discount Percentage value -1 is invalid. Please provide a discount value as a whole " +
                 "number between 0 and 100.", thrown.getMessage());
+    }
+
+    @Test
+    void checkoutWithMissingToolCode(){
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            pointOfSale.checkout("INVALIDTOOLCODE", 5, 10,
+                    LocalDate.of(2015, 9, 3));
+        });
+        assertEquals("Tool Code INVALIDTOOLCODE was not found in tool inventory. Please check tool code spelling and" +
+                " try again.", thrown.getMessage());
+    }
+
+    @Test
+    void checkoutWithMissingToolInfo(){
+        MissingResourceException thrown = assertThrows(MissingResourceException.class, () -> {
+            pointOfSale.checkout("MissingInfo", 5, 10,
+                    LocalDate.of(2015, 9, 3));
+        });
+        assertEquals("Provided tool code was found in inventory but tool type info was missing in system, " +
+                "please contact support for assistance or try a similar tool code.", thrown.getMessage());
     }
     @Test
     void addTool() {
