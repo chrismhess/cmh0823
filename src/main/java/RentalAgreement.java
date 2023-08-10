@@ -55,18 +55,18 @@ public class RentalAgreement {
         List<LocalDate> holidays = calculateHolidays(checkoutDate, rentalDuration);
         LocalDate currentDate = this.checkOutDate;
         int chargeableDays = 0;
-        for(int i = 0; i < rentalDayCount; i++) {
+        for (int i = 0; i < rentalDayCount; i++) {
             currentDate = currentDate.plusDays(1);
-            if(currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) { // if it's a weekend
-                if(info.getChargeOnWeekend()) {
+            if (currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) { // if it's a weekend
+                if (info.getChargeOnWeekend()) {
                     this.chargeableDays++;
                 }
             } else {// if it's not a weekend
                 // if holiday and weekday true no need to check if its holiday
-                if(info.getChargeOnHoliday() && info.getChargeOnWeekday()) {
+                if (info.getChargeOnHoliday() && info.getChargeOnWeekday()) {
                     this.chargeableDays++;
-                } else if(holidays.contains(currentDate) ) { // if it's a holiday and chargeable
-                    if(info.getChargeOnHoliday()) {
+                } else if (holidays.contains(currentDate) ) { // if it's a holiday and chargeable
+                    if (info.getChargeOnHoliday()) {
                         this.chargeableDays++;
                     }
                 } else if (info.getChargeOnWeekday()) { // it's not a holiday, check if chargeable and add to days
@@ -94,14 +94,15 @@ public class RentalAgreement {
         holidays.add(getLaborDayHolidayForYear(checkoutDate.getYear()));
         LocalDate localDate2 = LocalDate.of(checkoutDate.getYear(), 12, 31);
         int daysRemainingInYear = (int) ChronoUnit.DAYS.between(checkoutDate, localDate2);
-        if(rentalDuration > daysRemainingInYear) {
+        if (rentalDuration > daysRemainingInYear) {
             int currentYear = checkoutDate.getYear();
             rentalDuration = rentalDuration-daysRemainingInYear;
-            while(rentalDuration > 0) {
+            while (rentalDuration > 0) {
                 currentYear++;
                 holidays.add(getJulyFourthHolidayForYear(currentYear));
                 holidays.add(getLaborDayHolidayForYear(currentYear));
-                rentalDuration = rentalDuration-365;
+                // this declares a new LocalDate to account for potential leap years.
+                rentalDuration = rentalDuration-LocalDate.of(1,1,currentYear).lengthOfYear();
             }
         }
         return holidays;
@@ -116,10 +117,10 @@ public class RentalAgreement {
      */
     private LocalDate getJulyFourthHolidayForYear(int year) {
         LocalDate julyFourthHoliday = LocalDate.of(year,7,4);
-        if(julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+        if (julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
             julyFourthHoliday = julyFourthHoliday.minusDays(1);
         }
-        if(julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+        if (julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             julyFourthHoliday = julyFourthHoliday.plusDays(1);
         }
         return julyFourthHoliday;

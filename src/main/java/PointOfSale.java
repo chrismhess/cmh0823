@@ -18,7 +18,7 @@ public class PointOfSale {
 
     public static Tool getToolFromInventory(String toolCode) {
         Tool foundTool =  toolInventory.get(toolCode);
-        if(foundTool == null) {
+        if (foundTool == null) {
             throw new IllegalArgumentException(String.format("Tool Code %s was not found in tool inventory. Please check" +
                     " tool code spelling and try again.", toolCode));
         }
@@ -33,7 +33,7 @@ public class PointOfSale {
      */
     public static ToolInfo getToolInfo(String toolType) {
         ToolInfo foundToolInfo = toolInfoTable.get(toolType);
-        if(foundToolInfo == null) {
+        if (foundToolInfo == null) {
             throw new MissingResourceException("Provided tool code was found in inventory but tool type info was " +
                     "missing in system, please contact support for assistance or try a similar tool code.", "ToolInfo",
                     toolType);
