@@ -47,7 +47,9 @@ public class RentalAgreement {
                 }
             } else {// if it's not a weekend
                 // if holiday and weekday true no need to check if its holiday
-                if(holidays.contains(currentDate) ) { // if it's a holiday and chargeable
+                if(info.getChargeOnHoliday() && info.getChargeOnWeekday()) {
+                    this.chargeableDays++;
+                } else if(holidays.contains(currentDate) ) { // if it's a holiday and chargeable
                     if(info.getChargeOnHoliday()) {
                         this.chargeableDays++;
                     }

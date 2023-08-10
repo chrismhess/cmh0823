@@ -18,7 +18,7 @@ class PointOfSaleTest {
 
     @Test
     void testCheckout() {
-        RentalAgreement agreement = pointOfSale.checkout("CHNS", 5, 10, LocalDate.of(2023,9,1));
+        RentalAgreement agreement = pointOfSale.checkout("LADW", 5, 10, LocalDate.of(2023,9,1));
         assertEquals(3, agreement.getChargeableDays());
         assertEquals(10, agreement.getDiscountPercent());
         assertEquals(Money.of(1.49, PointOfSale.currency), agreement.getDailyRentalCharge());
