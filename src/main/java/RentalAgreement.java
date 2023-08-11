@@ -322,7 +322,7 @@ public class RentalAgreement {
     }
 
     /**
-     * Integer representing the percentage discount a customer is receiving between 0-100
+     * Integer representing the percentage discount a customer is receiving between 0-100 inclusive
      * @return Integer value
      */
     public int getDiscountPercent() {
