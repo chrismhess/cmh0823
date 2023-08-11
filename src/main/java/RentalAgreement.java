@@ -52,23 +52,39 @@ public class RentalAgreement {
             throw new IllegalArgumentException(String.format("Discount Percentage value %s is invalid. Please provide a" +
                     " discount value as a whole number between 0 and 100.", discountPercent));
         }
+        // get resources for building rental agreement
         Tool tool = PointOfSale.getToolFromInventory(toolCode);
         ToolInfo info = PointOfSale.getToolInfo(tool.toolType());
+        // assign known variables
         this.toolCode = toolCode;
         this.rentalDuration = rentalDayCount;
         this.discountPercent = discountPercent;
         this.checkOutDate = checkoutDate;
         this.dueDate = checkoutDate.plusDays(rentalDayCount);
-        this.chargeableDays = 0;
         this.dailyRentalCharge = info.getDailyCharge();
         this.toolBrand = tool.toolBrand();
         this.toolType = info.getToolType();
-        List<LocalDate> holidays = calculateHolidays(checkoutDate, rentalDuration);
+        this.chargeableDays = 0;
+        determineChargeableDays(rentalDayCount, info);
+        this.preDiscountPrice = info.getDailyCharge().multiply(this.chargeableDays);
+        this.discountAmount = preDiscountPrice.multiply((discountPercent*1.0/100.0));
+        this.finalPrice = preDiscountPrice.subtract(discountAmount);
+    }
+
+    /**
+     * This method determines the number of days that are chargeable given the input parameters
+     * @param rentalDayCount the number of days that the tool will be rented
+     * @param info the tool info needed to determine which days are chargeable
+     */
+    private void determineChargeableDays(int rentalDayCount, ToolInfo info) {
+        // build list of relevant holidays
+        List<LocalDate> holidays = calculateHolidays(this.checkOutDate, rentalDuration);
+        // temporary date for iterating on
         LocalDate currentDate = this.checkOutDate;
-        int chargeableDays = 0;
         for (int i = 0; i < rentalDayCount; i++) {
             currentDate = currentDate.plusDays(1);
-            if (currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) { // if it's a weekend
+            // if it's a weekend
+            if (currentDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) || currentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
                 if (info.getChargeOnWeekend()) {
                     this.chargeableDays++;
                 }
@@ -86,9 +102,6 @@ public class RentalAgreement {
 
             }
         }
-        this.preDiscountPrice = info.getDailyCharge().multiply(this.chargeableDays);
-        this.discountAmount = preDiscountPrice.multiply((discountPercent*1.0/100.0));
-        this.finalPrice = preDiscountPrice.subtract(discountAmount);
     }
 
     /**
