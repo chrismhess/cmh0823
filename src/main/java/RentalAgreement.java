@@ -1,6 +1,10 @@
 import org.javamoney.moneta.Money;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +14,8 @@ import static java.time.temporal.TemporalAdjusters.firstInMonth;
  * All the setter methods were intentionally left in to serve as a means of an adhoc update to an incorrect or existing
  * rental agreement that needed to be updated. If they are to be used they do not update the related fields and multiple
  * parts will need to be updated to create a rental agreement. But there was a possible need for manual input
- * for changing these given the potential for inconsistencies working with customers.
+ * for changing these given the potential for inconsistencies working with customers. Only rental agreements created
+ * through the constructor flow can be expected to be valid, use setter methods with caution.
  */
 public class RentalAgreement {
     private String toolCode;
@@ -57,6 +62,7 @@ public class RentalAgreement {
         this.chargeableDays = 0;
         this.dailyRentalCharge = info.getDailyCharge();
         this.toolBrand = tool.toolBrand();
+        this.toolType = info.getToolType();
         List<LocalDate> holidays = calculateHolidays(checkoutDate, rentalDuration);
         LocalDate currentDate = this.checkOutDate;
         int chargeableDays = 0;
@@ -355,5 +361,20 @@ public class RentalAgreement {
      */
     public void setFinalPrice(Money finalPrice) {
         this.finalPrice = finalPrice;
+    }
+
+    public void printToConsole() {
+        System.out.printf("Tool code: %s%n", this.toolCode);
+        System.out.printf("Tool type: %s%n", this.toolType);
+        System.out.printf("Tool brand: %s%n", this.toolBrand);
+        System.out.printf("Check Out Date: %s%n", DateTimeFormatter.ofPattern("MM/dd/yy").format(this.checkOutDate));
+        System.out.printf("Rental Duration: %s%n", this.rentalDuration);
+        System.out.printf("Due Date: %s%n", DateTimeFormatter.ofPattern("MM/dd/yy").format(this.dueDate));
+        System.out.printf("Daily Rental Charge: $%s%n", this.dailyRentalCharge.getNumber());
+        System.out.printf("Chargeable Days: %s%n", this.chargeableDays);
+        System.out.printf("Pre-Discount Price: $%s%n", this.preDiscountPrice.getNumber());
+        System.out.printf("Discount Percentage: %s%%%n", this.discountPercent);
+        System.out.printf("Discount Amount: $%s%n", this.discountAmount.getNumberStripped().setScale(2, BigDecimal.ROUND_HALF_UP));
+        System.out.printf("Final Price: $%s%n", this.finalPrice.getNumberStripped().setScale(2, BigDecimal.ROUND_HALF_UP));
     }
 }

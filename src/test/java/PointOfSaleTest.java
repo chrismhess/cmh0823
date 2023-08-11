@@ -49,6 +49,7 @@ class PointOfSaleTest {
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(3.582, PointOfSale.currency)));
         assertEquals(LocalDate.of(2020,7,5), agreement.getDueDate());
         assertEquals("Werner", agreement.getToolBrand());
+        agreement.printToConsole();
     }
 
     /**
@@ -70,6 +71,7 @@ class PointOfSaleTest {
         assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(4.47, PointOfSale.currency)));
         assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1.1175, PointOfSale.currency)));
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(3.3525, PointOfSale.currency)));
+        agreement.printToConsole();
     }
 
     /**
@@ -91,6 +93,7 @@ class PointOfSaleTest {
         assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(4.47, PointOfSale.currency)));
         assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1.1175, PointOfSale.currency)));
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(3.3525, PointOfSale.currency)));
+        agreement.printToConsole();
     }
 
     /**
@@ -112,6 +115,7 @@ class PointOfSaleTest {
         assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(8.97, PointOfSale.currency)));
         assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(0, PointOfSale.currency)));
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(8.97, PointOfSale.currency)));
+        agreement.printToConsole();
     }
 
     /**
@@ -133,6 +137,7 @@ class PointOfSaleTest {
         assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(14.95, PointOfSale.currency)));
         assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(0, PointOfSale.currency)));
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(14.95, PointOfSale.currency)));
+        agreement.printToConsole();
     }
 
     /**
@@ -154,10 +159,11 @@ class PointOfSaleTest {
         assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(2.99, PointOfSale.currency)));
         assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1.495, PointOfSale.currency)));
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(1.495, PointOfSale.currency)));
+        agreement.printToConsole();
     }
 
     /**
-     * During development, it was determined that an edge case was not covered where a customer could potentially check
+     * During development, an important edge needed to be covered where a customer could potentially check
      * a tool out over multiple years and encompass multiple sets of holidays beyond the year provided on the checkout
      * date. This test covers this case where a customer is checking out a tool for 3 years which requires the system
      * to determine holidays across multiple years. Thankfully we gave this customer a 75% discount given the length
@@ -178,6 +184,7 @@ class PointOfSaleTest {
         assertTrue(agreement.getPreDiscountPrice().isEqualTo(Money.of(2317.25, PointOfSale.currency)));
         assertTrue(agreement.getDiscountAmount().isEqualTo(Money.of(1737.9375, PointOfSale.currency)));
         assertTrue(agreement.getFinalPrice().isEqualTo(Money.of(579.3125, PointOfSale.currency)));
+        agreement.printToConsole();
     }
 
     /**
