@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingResourceException;
 import static java.time.temporal.TemporalAdjusters.firstInMonth;
 
 public class RentalAgreement {
@@ -101,8 +100,8 @@ public class RentalAgreement {
                 currentYear++;
                 holidays.add(getJulyFourthHolidayForYear(currentYear));
                 holidays.add(getLaborDayHolidayForYear(currentYear));
-                // this declares a new LocalDate to account for potential leap years.
-                rentalDuration = rentalDuration-LocalDate.of(1,1,currentYear).lengthOfYear();
+                // this declares a new LocalDate to get length of a year to account for potential leap years.
+                rentalDuration = rentalDuration-LocalDate.of(currentYear,1,1).lengthOfYear();
             }
         }
         return holidays;
@@ -119,8 +118,7 @@ public class RentalAgreement {
         LocalDate julyFourthHoliday = LocalDate.of(year,7,4);
         if (julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
             julyFourthHoliday = julyFourthHoliday.minusDays(1);
-        }
-        if (julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+        } else if (julyFourthHoliday.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             julyFourthHoliday = julyFourthHoliday.plusDays(1);
         }
         return julyFourthHoliday;

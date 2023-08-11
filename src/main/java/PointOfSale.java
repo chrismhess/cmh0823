@@ -1,5 +1,3 @@
-
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -17,6 +15,12 @@ public class PointOfSale {
         this.initializeToolInfoTable();
     }
 
+    /**
+     * A method for querying the tool inventory given a string
+     * @param toolCode the tool code for the tool in the inventory collection we are trying to find
+     * @return the tool if present, otherwise the method will throw an exception informing the user the tool is not
+     * in the inventory list
+     */
     public static Tool getToolFromInventory(String toolCode) {
         Tool foundTool =  toolInventory.get(toolCode);
         if (foundTool == null) {
