@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.time.temporal.TemporalAdjusters.firstInMonth;
 
+/**
+ * All the setter methods were intentionally left in to serve as a means of an adhoc update to an incorrect or existing
+ * rental agreement that needed to be updated. If they are to be used they do not update the related fields and multiple
+ * parts will need to be updated to create a rental agreement. But there was a possible need for manual input
+ * for changing these given the potential for inconsistencies working with customers.
+ */
 public class RentalAgreement {
     private String toolCode;
     private String toolType;
@@ -166,7 +172,7 @@ public class RentalAgreement {
      * This takes string to set the type of code in the rental agreement.
      * The setter methods were intentionally included in case there may be a need in the future for a manger to override
      * an existing rental agreement due to a dispute or other issue during the rental process.
-     * @param toolCode the tool code for this rental agreement
+     * @param toolCode the new tool code for this rental agreement
      */public void setToolCode(String toolCode) {
         this.toolCode = toolCode;
     }
@@ -179,6 +185,12 @@ public class RentalAgreement {
         return toolBrand;
     }
 
+    /**
+     * This takes string to set the type of brand in the rental agreement.
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement due to a new or different tool brand being available at the time
+     * @param toolBrand the new tool brand for this rental agreement
+     */
     public void setToolBrand(String toolBrand) {
         this.toolBrand = toolBrand;
     }
@@ -191,6 +203,12 @@ public class RentalAgreement {
         return rentalDuration;
     }
 
+    /**
+     * This takes integer to set the rental duration of the agreement
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement due an early or late return of a tool or other reason.
+     * @param rentalDuration the new rental duration for this rental agreement
+     */
     public void setRentalDuration(int rentalDuration) {
         this.rentalDuration = rentalDuration;
     }
@@ -203,6 +221,12 @@ public class RentalAgreement {
         return checkOutDate;
     }
 
+    /**
+     * This takes a date object to set the checkout date
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement due an incorrect or moved checkout date
+     * @param checkOutDate the new checkout date for this rental agreement
+     */
     public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
@@ -215,6 +239,12 @@ public class RentalAgreement {
         return dueDate;
     }
 
+    /**
+     * This takes a date object to set the return date
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement due change in when the tool may be due back
+     * @param dueDate the new due date for this rental agreement
+     */
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
@@ -227,6 +257,12 @@ public class RentalAgreement {
         return dailyRentalCharge;
     }
 
+    /**
+     * This takes a Money object for setting the daily rental charge
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement if there is a new or different daily rate to be applied.
+     * @param dailyRentalCharge the new daily charge for this rental agreement
+     */
     public void setDailyRentalCharge(Money dailyRentalCharge) {
         this.dailyRentalCharge = dailyRentalCharge;
     }
@@ -239,6 +275,12 @@ public class RentalAgreement {
         return chargeableDays;
     }
 
+    /**
+     * This takes an integer for setting the number of chargeable days in the rental agreement
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement if there is a need to change how many days were chargeable
+     * @param chargeableDays the new number of chargeable days on the rental agreement
+     */
     public void setChargeableDays(int chargeableDays) {
         this.chargeableDays = chargeableDays;
     }
@@ -251,6 +293,12 @@ public class RentalAgreement {
         return preDiscountPrice;
     }
 
+    /**
+     * This takes a Money object for setting how much total is before discount
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement if there is a need to change the pre discount price
+     * @param preDiscountPrice the new pre discount total for the rental agreement
+     */
     public void setPreDiscountPrice(Money preDiscountPrice) {
         this.preDiscountPrice = preDiscountPrice;
     }
@@ -263,6 +311,12 @@ public class RentalAgreement {
         return discountPercent;
     }
 
+    /**
+     * This takes an integer indicating the new amount of discount to be applied
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement if there is a need to change amount discounted
+     * @param discountPercent the new discount percentage
+     */
     public void setDiscountPercent(int discountPercent) {
         this.discountPercent = discountPercent;
     }
@@ -275,6 +329,12 @@ public class RentalAgreement {
         return discountAmount;
     }
 
+    /**
+     * This takes a Money object for setting how much of a discount value will be applied
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement if there is a need to change amount discounted
+     * @param discountAmount the new discount amount
+     */
     public void setDiscountAmount(Money discountAmount) {
         this.discountAmount = discountAmount;
     }
@@ -287,6 +347,12 @@ public class RentalAgreement {
         return finalPrice;
     }
 
+    /**
+     * This takes a Money object for setting how much the final total will be
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement if there is a need to change final total
+     * @param finalPrice the new discount amount
+     */
     public void setFinalPrice(Money finalPrice) {
         this.finalPrice = finalPrice;
     }
