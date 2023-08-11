@@ -1,20 +1,14 @@
-public class Tool {
-    private final String toolCode;
-    private final String toolType;
-    private final String toolBrand;
-
+public record Tool(String toolCode, String toolType, String toolBrand) {
     /**
      * Constructor for a tool object requiring the following parameters
-     * @param toolCode the unique tool code used for looking up tools, uniqueness is managed by the collection that
-     *                 stores the tool inventory in the point of sale object
-     * @param toolType the type tool this tool code represents, used for looking up additional tool info in tool info
-     *                 collection in point of sale object
+     *
+     * @param toolCode  the unique tool code used for looking up tools, uniqueness is managed by the collection that
+     *                  stores the tool inventory in the point of sale object
+     * @param toolType  the type tool this tool code represents, used for looking up additional tool info in tool info
+     *                  collection in point of sale object
      * @param toolBrand the brand of this specific tool such as DeWalt, Stihl, Ridgid etc.
      */
-    public Tool(String toolCode, String toolType, String toolBrand) {
-        this.toolCode = toolCode;
-        this.toolType = toolType;
-        this.toolBrand = toolBrand;
+    public Tool {
     }
 
     /**
@@ -27,7 +21,8 @@ public class Tool {
      * Gets the tool code for the given tool object
      * @return the string representing the tool code
      */
-    public String getToolCode() {
+    @Override
+    public String toolCode() {
         return toolCode;
     }
 
@@ -35,7 +30,8 @@ public class Tool {
      * Gets the tool type for the given tool object
      * @return the string representing the tool type
      */
-    public String getToolType() {
+    @Override
+    public String toolType() {
         return toolType;
     }
 
@@ -43,7 +39,8 @@ public class Tool {
      * Gets the tool brand for the given tool object
      * @return the string representing the tool brand
      */
-    public String getToolBrand() {
+    @Override
+    public String toolBrand() {
         return toolBrand;
     }
 }

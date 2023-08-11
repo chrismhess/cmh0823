@@ -10,14 +10,14 @@ class ToolTest {
     }
     @Test
     void testGetToolCode() {
-        assertEquals("CHNS",testTool.getToolCode());
+        assertEquals("CHNS",testTool.toolCode());
     }
     @Test
     void getToolType() {
-        assertEquals("Chainsaw", testTool.getToolType());
+        assertEquals("Chainsaw", testTool.toolType());
     }
     @Test
     void getToolBrand() {
-        assertEquals("Stihl", testTool.getToolBrand());
+        assertEquals("Stihl", testTool.toolBrand());
     }
 }

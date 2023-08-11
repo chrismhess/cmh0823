@@ -42,7 +42,7 @@ public class RentalAgreement {
                     " discount value as a whole number between 0 and 100.", discountPercent));
         }
         Tool tool = PointOfSale.getToolFromInventory(toolCode);
-        ToolInfo info = PointOfSale.getToolInfo(tool.getToolType());
+        ToolInfo info = PointOfSale.getToolInfo(tool.toolType());
         this.toolCode = toolCode;
         this.rentalDuration = rentalDayCount;
         this.discountPercent = discountPercent;
@@ -50,7 +50,7 @@ public class RentalAgreement {
         this.dueDate = checkoutDate.plusDays(rentalDayCount);
         this.chargeableDays = 0;
         this.dailyRentalCharge = info.getDailyCharge();
-        this.toolBrand = tool.getToolBrand();
+        this.toolBrand = tool.toolBrand();
         List<LocalDate> holidays = calculateHolidays(checkoutDate, rentalDuration);
         LocalDate currentDate = this.checkOutDate;
         int chargeableDays = 0;
@@ -135,22 +135,46 @@ public class RentalAgreement {
         return LocalDate.of(year, 9,1).with(firstInMonth(DayOfWeek.MONDAY));
     }
 
+    /**
+     * Gets the tool type for the given tool object
+     * @return the string representing the tool type
+     */
     public String getToolType() {
         return toolType;
     }
 
+    /**
+     * This takes string to set the type of tool in the rental agreement.
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement due to a dispute or other issue during the rental process.
+     * @param toolType the tool type for this rental agreement
+     */
     public void setToolType(String toolType) {
         this.toolType = toolType;
     }
 
+
+    /**
+     * Gets the tool code for the given tool object
+     * @return the string representing the tool code
+     */
     public String getToolCode() {
         return toolCode;
     }
 
-    public void setToolCode(String toolCode) {
+    /**
+     * This takes string to set the type of code in the rental agreement.
+     * The setter methods were intentionally included in case there may be a need in the future for a manger to override
+     * an existing rental agreement due to a dispute or other issue during the rental process.
+     * @param toolCode the tool code for this rental agreement
+     */public void setToolCode(String toolCode) {
         this.toolCode = toolCode;
     }
 
+    /**
+     * Gets the tool brand for the given tool object
+     * @return the string representing the tool brand
+     */
     public String getToolBrand() {
         return toolBrand;
     }
@@ -159,6 +183,10 @@ public class RentalAgreement {
         this.toolBrand = toolBrand;
     }
 
+    /**
+     * Gets the duration of this rental agreement
+     * @return the integer representing the duration of this rental agreemnt
+     */
     public int getRentalDuration() {
         return rentalDuration;
     }
@@ -167,6 +195,10 @@ public class RentalAgreement {
         this.rentalDuration = rentalDuration;
     }
 
+    /**
+     * Gets the date the tool is initially checked out
+     * @return the LocalDate object that stores the checkout date for this rental agreement
+     */
     public LocalDate getCheckOutDate() {
         return checkOutDate;
     }
@@ -175,6 +207,10 @@ public class RentalAgreement {
         this.checkOutDate = checkOutDate;
     }
 
+    /**
+     * Gets the date that this rental agreement ends and the tool is due to be returned
+     * @return the LocalDate object that stores the date the tool needs to be returned
+     */
     public LocalDate getDueDate() {
         return dueDate;
     }
@@ -183,6 +219,10 @@ public class RentalAgreement {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Gets the Money object representing how much this tool costs to rent per day
+     * @return the Money object
+     */
     public Money getDailyRentalCharge() {
         return dailyRentalCharge;
     }
@@ -191,6 +231,10 @@ public class RentalAgreement {
         this.dailyRentalCharge = dailyRentalCharge;
     }
 
+    /**
+     * Gets the number of days that are actually billed during this rental agreement period
+     * @return the integer representing how many days the customer was charged for
+     */
     public int getChargeableDays() {
         return chargeableDays;
     }
@@ -199,6 +243,10 @@ public class RentalAgreement {
         this.chargeableDays = chargeableDays;
     }
 
+    /**
+     * Gets the Monetary value that indicates how much of a discount the customer will receive over the rental period
+     * @return Money object
+     */
     public Money getPreDiscountPrice() {
         return preDiscountPrice;
     }
@@ -207,6 +255,10 @@ public class RentalAgreement {
         this.preDiscountPrice = preDiscountPrice;
     }
 
+    /**
+     * Integer representing the percentage discount a customer is receiving between 0-100
+     * @return Integer value
+     */
     public int getDiscountPercent() {
         return discountPercent;
     }
@@ -215,6 +267,10 @@ public class RentalAgreement {
         this.discountPercent = discountPercent;
     }
 
+    /**
+     * Gets the Monetary value that indicates how much the discount amount will be round up from half cents.
+     * @return Money object
+     */
     public Money getDiscountAmount() {
         return discountAmount;
     }
@@ -223,6 +279,10 @@ public class RentalAgreement {
         this.discountAmount = discountAmount;
     }
 
+    /**
+     * Gets the Monetary value that indicates how much the final price the customer will pay
+     * @return Money object
+     */
     public Money getFinalPrice() {
         return finalPrice;
     }

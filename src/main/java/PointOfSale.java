@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.MissingResourceException;
 
 public class PointOfSale {
-    // hash map is used to store tools to ensure unique tool codes, tool types, and fast access
+    // hash maps are used to store tools to ensure unique tool codes, tool types, and fast access
     private static HashMap<String, Tool> toolInventory;
     private static HashMap<String, ToolInfo> toolInfoTable;
     public static String currency = "USD";
@@ -16,7 +16,7 @@ public class PointOfSale {
     }
 
     /**
-     * A method for querying the tool inventory given a string
+     * Used for querying the tool inventory given a string
      * @param toolCode the tool code for the tool in the inventory collection we are trying to find
      * @return the tool if present, otherwise the method will throw an exception informing the user the tool is not
      * in the inventory list
@@ -31,7 +31,7 @@ public class PointOfSale {
     }
 
     /**
-     * A method for getting tool info by providing the tool type
+     * Get tool info by providing the tool type
      * @param toolType the type of tool we are trying to look up
      * @return the ToolInfo object if found, otherwise throw exception and end execution to avoid null pointer
      * exceptions where the hash map would return null if nothing is found.
@@ -47,7 +47,7 @@ public class PointOfSale {
     }
 
     /**
-     * This function serves as the checkout method for creating a rental agreement
+     * Checkout method for creating a rental agreement
      * @param toolCode the code for tool being rented
      * @param rentalDayCount the number of days as an integer representing the duration of the rental period
      * @param discountPercent the discount percent represented as an int value from 0-100
@@ -59,12 +59,12 @@ public class PointOfSale {
     }
 
     public void addTool(Tool tool) {
-        toolInventory.put(tool.getToolCode(), tool);
+        toolInventory.put(tool.toolCode(), tool);
     }
 
     /**
      *
-     * This function serves as the checkout method for creating a rental agreement, it is overloaded to allow for using
+     * Checkout method for creating a rental agreement, it is overloaded to allow for using
      * either a date object or a string to be turned into a date object for flexibility
      * @param toolCode the code for tool being rented
      * @param rentalDayCount the number of days as an integer representing the duration of the rental period
@@ -79,7 +79,7 @@ public class PointOfSale {
     }
 
     /**
-     * This method initializes the inventory to hold all the tools defined in the specification with some additional
+     * Initializes the inventory to hold all the tools defined in the specification with some additional
      * inventory for testing purposes
      */
     private void initializeInventory() {
@@ -91,7 +91,7 @@ public class PointOfSale {
     }
 
     /**
-     * this method initializes the tool information table to meet the provided specification. Tool and Tool info
+     * Initializes the tool information table to meet the provided specification. Tool and Tool info
      * could have been combined but given the need to duplicate tool info stored in tools of the same type it made more
      * sense to instead store the information in two different tables with toolType being the key shared between objects
      */
