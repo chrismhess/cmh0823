@@ -5,15 +5,18 @@ import java.util.MissingResourceException;
 
 public class PointOfSale {
     // hash maps are used to store tools to ensure unique tool codes, tool types, and fast access
-    private static HashMap<String, Tool> toolInventory;
-    private static HashMap<String, ToolInfo> toolInfoTable;
+    private static final HashMap<String, Tool> toolInventory;
+    private static final HashMap<String, ToolInfo> toolInfoTable;
     // currency used in declaring monetary values, also allows for configuration in future
     public static String currency = "USD";
-    public PointOfSale() {
+    static {
         toolInventory = new HashMap<>();
         toolInfoTable = new HashMap<>();
-        this.initializeInventory();
-        this.initializeToolInfoTable();
+        initializeInventory();
+        initializeToolInfoTable();
+    }
+
+    public PointOfSale() {
     }
 
     /**
@@ -79,7 +82,7 @@ public class PointOfSale {
      * Initializes the inventory to hold all the tools defined in the specification with some additional
      * inventory for testing purposes
      */
-    private void initializeInventory() {
+    private static void initializeInventory() {
         toolInventory.put("CHNS", new Tool("CHNS", "Chainsaw", "Stihl"));
         toolInventory.put("LADW", new Tool("LADW", "Ladder", "Werner"));
         toolInventory.put("JAKD", new Tool("JAKD", "Jackhammer", "DeWalt"));
@@ -92,7 +95,7 @@ public class PointOfSale {
      * could have been combined but given the need to duplicate tool info stored in tools of the same type it made more
      * sense to instead store the information in two different tables with toolType being the key shared between objects
      */
-    private void initializeToolInfoTable() {
+    private static void initializeToolInfoTable() {
         toolInfoTable.put("Ladder", new ToolInfo("Ladder", 1.99, true, true, false));
         toolInfoTable.put("Chainsaw", new ToolInfo("Chainsaw", 1.49, true, false, true));
         toolInfoTable.put("Jackhammer", new ToolInfo("Jackhammer", 2.99, true, false, false));

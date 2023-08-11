@@ -8,12 +8,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RentalAgreementTest {
-    static PointOfSale pointOfSale;
     static RentalAgreement rentalAgreement;
 
     @BeforeEach
     public void init(){
-        pointOfSale = new PointOfSale();
         rentalAgreement = new RentalAgreement("JAKR", 5, 10,
                 LocalDate.of(2015, 9, 3));
     }
