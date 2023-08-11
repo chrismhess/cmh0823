@@ -7,6 +7,7 @@ public class PointOfSale {
     // hash maps are used to store tools to ensure unique tool codes, tool types, and fast access
     private static HashMap<String, Tool> toolInventory;
     private static HashMap<String, ToolInfo> toolInfoTable;
+    // currency used in declaring monetary values, also allows for configuration in future
     public static String currency = "USD";
     public PointOfSale() {
         toolInventory = new HashMap<>();
