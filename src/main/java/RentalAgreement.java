@@ -1,7 +1,6 @@
 import org.javamoney.moneta.Money;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -216,7 +215,7 @@ public class RentalAgreement {
 
     /**
      * Gets the duration of this rental agreement
-     * @return the integer representing the duration of this rental agreemnt
+     * @return the integer representing the duration of this rental agreement
      */
     public int getRentalDuration() {
         return rentalDuration;
