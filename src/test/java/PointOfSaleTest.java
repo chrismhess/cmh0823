@@ -141,7 +141,7 @@ class PointOfSaleTest {
     }
 
     /**
-     * Test 5 per the assignment specification, this is a test of a valid Jackhammer tool being checked out for four
+     * Test 6 per the assignment specification, this is a test of a valid Jackhammer tool being checked out for four
      * days over the July Fourth holiday of 2015 with a 50% discount applied.
      */
     @Test
@@ -220,8 +220,5 @@ class PointOfSaleTest {
         });
         assertEquals("Provided tool code was found in inventory but tool type info was missing in system, " +
                 "please contact support for assistance or try a similar tool code.", thrown.getMessage());
-    }
-    @Test
-    void addTool() {
     }
 }

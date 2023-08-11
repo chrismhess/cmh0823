@@ -58,10 +58,6 @@ public class PointOfSale {
         return new RentalAgreement(toolCode, rentalDayCount, discountPercent, checkoutDate);
     }
 
-    public void addTool(Tool tool) {
-        toolInventory.put(tool.toolCode(), tool);
-    }
-
     /**
      *
      * Checkout method for creating a rental agreement, it is overloaded to allow for using
